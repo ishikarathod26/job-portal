@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Job - MyJobPortal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo"><span class="logo-icon">💼</span> MyJobPortal</a>
+            <div class="nav-links">
+                <a th:href="@{/}" class="nav-link">Home</a>
+                <a th:href="@{/jobs}" class="nav-link">Browse Jobs</a>
+                <a th:href="@{/post-job}" class="nav-link">Post a Job</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="form-section">
+        <div class="container">
+            <div class="form-card">
+                <h1>Job Application</h1>
+                <p class="form-subtitle">Applying for position: <strong th:text="${job.title}">Job Title</strong> at <strong th:text="${job.company}">Company</strong></p>
+
+                <div id="alertMessage" class="alert" style="display: none;"></div>
+
+                <form id="applyForm" onsubmit="submitApplication(event, [[${job.id}]])">
+                    <div class="form-group">
+                        <label for="applicantName">Full Name *</label>
+                        <input type="text" id="applicantName" name="applicantName" required placeholder="e.g. Ishika Sharma">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="e.g. ishika@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="e.g. 9876543210">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resumeSummary">Summary / Key Highlights</label>
+                        <textarea id="resumeSummary" name="resumeSummary" rows="3" placeholder="Brief summary of your skills, experience, and key projects..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coverLetter">Cover Letter</label>
+                        <textarea id="coverLetter" name="coverLetter" rows="5" placeholder="Why are you a great fit for this position?"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success btn-lg">Submit Application</button>
+                        <a th:href="@{/jobs/{id}(id=${job.id})}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MyJobPortal. Built with Spring Boot, Thymeleaf &amp; MySQL.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

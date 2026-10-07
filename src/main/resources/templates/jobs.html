@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Jobs - MyJobPortal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">💼</span> MyJobPortal
+            </a>
+            <div class="nav-links">
+                <a th:href="@{/}" class="nav-link">Home</a>
+                <a th:href="@{/jobs}" class="nav-link active">Browse Jobs</a>
+                <a th:href="@{/post-job}" class="nav-link">Post a Job</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Success Messages -->
+    <div th:if="${param.success}" class="alert alert-success">
+        <span th:if="${param.success[0] == 'posted'}">✅ Job posted successfully!</span>
+        <span th:if="${param.success[0] == 'updated'}">✅ Job updated successfully!</span>
+        <span th:if="${param.success[0] == 'deleted'}">✅ Job deleted successfully!</span>
+    </div>
+
+    <!-- Jobs Section -->
+    <section class="jobs-section">
+        <div class="container">
+            <div class="section-header">
+                <h1>Available Job Listings</h1>
+                <p th:text="'Showing ' + ${#lists.size(jobs)} + ' jobs'">Showing jobs</p>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="filter-bar">
+                <input type="text" id="searchInput" placeholder="Search by title, skills, or company..." 
+                       class="search-input">
+                <button onclick="searchJobs()" class="search-btn">🔍 Search</button>
+                <button onclick="clearSearch()" class="clear-btn">Clear</button>
+            </div>
+
+            <!-- Job Cards Grid -->
+            <div class="job-cards" id="jobCardsContainer">
+                <div th:each="job : ${jobs}" class="job-card">
+                    <div class="job-card-header">
+                        <h3 class="job-title" th:text="${job.title}">Job Title</h3>
+                        <span class="job-type" th:text="${job.jobType}" 
+                              th:classappend="${job.jobType == 'FULL_TIME'} ? ' type-fulltime' : 
+                                             (${job.jobType == 'PART_TIME'} ? ' type-parttime' : 
+                                             (${job.jobType == 'INTERNSHIP'} ? ' type-internship' : ' type-contract'))">
+                            Type
+                        </span>
+                    </div>
+                    <div class="job-card-body">
+                        <p class="job-company">🏢 <span th:text="${job.company}">Company</span></p>
+                        <p class="job-location">📍 <span th:text="${job.location}">Location</span></p>
+                        <p class="job-experience">💼 <span th:text="${job.experienceRequired}">0</span> years experience</p>
+                        <p class="job-salary">💰 ₹<span th:text="${#numbers.formatDecimal(job.salary, 0, 'COMMA', 0, 'POINT')}">0</span>/year</p>
+                        <p class="job-description" th:text="${#strings.abbreviate(job.description, 120)}">Description</p>
+                        <div class="job-skills" th:if="${job.skillsRequired}">
+                            <span th:each="skill : ${#strings.arraySplit(job.skillsRequired, ',')}" 
+                                  class="skill-tag" th:text="${#strings.trim(skill)}">Skill</span>
+                        </div>
+                    </div>
+                    <div class="job-card-footer">
+                        <span class="posted-date" th:text="'Posted: ' + ${job.postedDate}">Date</span>
+                        <div class="job-actions">
+                            <a th:href="@{/jobs/{id}(id=${job.id})}" class="btn btn-primary">View Details</a>
+                            <a th:href="@{/jobs/{id}/apply(id=${job.id})}" class="btn btn-success">Apply</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Jobs Message -->
+            <div th:if="${#lists.isEmpty(jobs)}" class="no-results">
+                <h3>No jobs found</h3>
+                <p>Try a different search or <a th:href="@{/post-job}">post a new job</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MyJobPortal. Built with Spring Boot, Thymeleaf &amp; MySQL.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a New Job - MyJobPortal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo"><span class="logo-icon">💼</span> MyJobPortal</a>
+            <div class="nav-links">
+                <a th:href="@{/}" class="nav-link">Home</a>
+                <a th:href="@{/jobs}" class="nav-link">Browse Jobs</a>
+                <a th:href="@{/post-job}" class="nav-link active">Post a Job</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="form-section">
+        <div class="container">
+            <div class="form-card">
+                <h1>Post a New Job Opening</h1>
+                <p class="form-subtitle">Fill in the details below to publish your job listing.</p>
+
+                <form th:action="@{/post-job}" th:object="${job}" method="post">
+                    <div class="form-group">
+                        <label for="title">Job Title *</label>
+                        <input type="text" id="title" th:field="*{title}" required placeholder="e.g. Senior Java Developer">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company Name *</label>
+                        <input type="text" id="company" th:field="*{company}" required placeholder="e.g. TechCorp Solutions">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <input type="text" id="location" th:field="*{location}" required placeholder="e.g. Bangalore / Remote">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="salary">Annual Salary (INR) *</label>
+                            <input type="number" id="salary" th:field="*{salary}" step="10000" required placeholder="e.g. 800000">
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="jobType">Job Type *</label>
+                            <select id="jobType" th:field="*{jobType}" required>
+                                <option value="FULL_TIME">Full Time</option>
+                                <option value="PART_TIME">Part Time</option>
+                                <option value="INTERNSHIP">Internship</option>
+                                <option value="CONTRACT">Contract</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="experienceRequired">Required Experience (Years) *</label>
+                        <input type="number" id="experienceRequired" th:field="*{experienceRequired}" min="0" required placeholder="e.g. 2">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="skillsRequired">Required Skills (Comma separated)</label>
+                        <input type="text" id="skillsRequired" th:field="*{skillsRequired}" placeholder="e.g. Java, Spring Boot, MySQL, REST API">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Job Description *</label>
+                        <textarea id="description" th:field="*{description}" rows="5" required placeholder="Describe responsibilities, requirements, and benefits..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg">Publish Job Opening</button>
+                        <a th:href="@{/jobs}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MyJobPortal. Built with Spring Boot, Thymeleaf &amp; MySQL.</p>
+        </div>
+    </footer>
+</body>
+</html>

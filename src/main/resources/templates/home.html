@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyJobPortal - Find Your Dream Job</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">💼</span> MyJobPortal
+            </a>
+            <div class="nav-links">
+                <a th:href="@{/}" class="nav-link active">Home</a>
+                <a th:href="@{/jobs}" class="nav-link">Browse Jobs</a>
+                <a th:href="@{/post-job}" class="nav-link">Post a Job</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find Your <span class="highlight">Dream Job</span> Today</h1>
+            <p class="hero-subtitle">Browse through hundreds of job listings from top companies. 
+               Start your career journey with MyJobPortal.</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search jobs by title, skills, or company..." 
+                       class="search-input">
+                <button onclick="searchJobs()" class="search-btn">🔍 Search</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-number" th:text="${jobCount}">0</span>
+                    <span class="stat-label">Active Jobs</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Companies</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Applications</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+        <div class="container">
+            <h2>Get Started</h2>
+            <div class="action-cards">
+                <a th:href="@{/jobs}" class="action-card">
+                    <div class="action-icon">🔍</div>
+                    <h3>Browse Jobs</h3>
+                    <p>Search and explore available job listings from various companies</p>
+                </a>
+                <a th:href="@{/post-job}" class="action-card">
+                    <div class="action-icon">📝</div>
+                    <h3>Post a Job</h3>
+                    <p>Are you an employer? Post job openings and find talented candidates</p>
+                </a>
+                <a th:href="@{/jobs}" class="action-card">
+                    <div class="action-icon">📄</div>
+                    <h3>Apply Now</h3>
+                    <p>Found a matching job? Apply directly with your details</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MyJobPortal. Built with Spring Boot, Thymeleaf &amp; MySQL.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

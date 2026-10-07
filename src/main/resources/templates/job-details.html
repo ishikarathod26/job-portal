@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details - MyJobPortal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo"><span class="logo-icon">💼</span> MyJobPortal</a>
+            <div class="nav-links">
+                <a th:href="@{/}" class="nav-link">Home</a>
+                <a th:href="@{/jobs}" class="nav-link">Browse Jobs</a>
+                <a th:href="@{/post-job}" class="nav-link">Post a Job</a>
+            </div>
+        </div>
+    </nav>
+
+    <div th:if="${param.success}" class="alert alert-success">
+        <span th:if="${param.success[0] == 'updated'}">✅ Job details updated successfully!</span>
+    </div>
+
+    <section class="job-detail-section">
+        <div class="container">
+            <div class="back-link">
+                <a th:href="@{/jobs}">← Back to All Jobs</a>
+            </div>
+
+            <div class="job-detail-card">
+                <div class="detail-header">
+                    <div>
+                        <h1 class="detail-title" th:text="${job.title}">Job Title</h1>
+                        <h3 class="detail-company" th:text="${job.company}">Company Name</h3>
+                    </div>
+                    <span class="job-type" th:text="${job.jobType}">Type</span>
+                </div>
+
+                <div class="detail-meta">
+                    <div class="meta-item">📍 <strong>Location:</strong> <span th:text="${job.location}">Location</span></div>
+                    <div class="meta-item">💰 <strong>Salary:</strong> ₹<span th:text="${#numbers.formatDecimal(job.salary, 0, 'COMMA', 0, 'POINT')}">0</span> / year</div>
+                    <div class="meta-item">💼 <strong>Experience Required:</strong> <span th:text="${job.experienceRequired}">0</span> years</div>
+                    <div class="meta-item">📅 <strong>Posted Date:</strong> <span th:text="${job.postedDate}">Date</span></div>
+                </div>
+
+                <div class="detail-block">
+                    <h2>Job Description</h2>
+                    <p th:text="${job.description}">Detailed job description goes here...</p>
+                </div>
+
+                <div class="detail-block" th:if="${job.skillsRequired}">
+                    <h2>Required Skills</h2>
+                    <div class="job-skills">
+                        <span th:each="skill : ${#strings.arraySplit(job.skillsRequired, ',')}" 
+                              class="skill-tag" th:text="${#strings.trim(skill)}">Skill</span>
+                    </div>
+                </div>
+
+                <div class="detail-actions">
+                    <a th:href="@{/jobs/{id}/apply(id=${job.id})}" class="btn btn-success btn-lg">Apply for this Job</a>
+                    <a th:href="@{/jobs/{id}/edit(id=${job.id})}" class="btn btn-secondary">Edit Job</a>
+                    <a th:href="@{/jobs/{id}/delete(id=${job.id})}" 
+                       onclick="return confirm('Are you sure you want to delete this job posting?');" 
+                       class="btn btn-danger">Delete Job</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MyJobPortal. Built with Spring Boot, Thymeleaf &amp; MySQL.</p>
+        </div>
+    </footer>
+</body>
+</html>
