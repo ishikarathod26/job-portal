@@ -1,4 +1,4 @@
-# MyJobPortal - Spring Boot Job Portal Application
+ MyJobPortal - Spring Boot Job Portal Application
 
 MyJobPortal is a full-stack web application built using **Java**, **Spring Boot**, **Spring Data JPA**, **MySQL**, and **Thymeleaf**. It provides a clean, production-ready implementation of a job portal where employers can post and manage job opportunities, and job seekers can search, filter, view details, and apply for positions.
 
